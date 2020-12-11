@@ -3,7 +3,6 @@ package structs
 import (
 	"encoding/json"
 	errors2 "github.com/lusantisuper/api-rede-golang/apierr"
-	"github.com/lusantisuper/api-rede-golang/errors"
 	"github.com/lusantisuper/api-rede-golang/utils"
 )
 
@@ -42,7 +41,7 @@ type Request struct {
 }
 
 // Return a valid json
-func (r Request) ToJson() ([]byte, error) {
+func (r Request) ToJson() (string, error) {
 	result := Request{
 		Capture:                r.Capture,
 		Kind:                   r.Kind,
@@ -63,22 +62,22 @@ func (r Request) ToJson() ([]byte, error) {
 
 	// Adding all necessary parameters
 	if utils.IsStringEmpty(r.Reference) {
-		return nil, errors2.ApiErr(errors2.INSUFFICIENTPARAMETERS)
+		return "", errors2.ApiErr(errors2.INSUFFICIENTPARAMETERS)
 	}
 	if r.Amount < 0 || r.Amount > 1000000000 {
-		return nil, errors2.ApiErr(errors2.WRONGAMOUNT)
+		return "", errors2.ApiErr(errors2.WRONGAMOUNT)
 	}
 	if r.CardNumber == 0 {
-		return nil, errors2.ApiErr(errors2.INSUFFICIENTPARAMETERS)
+		return "", errors2.ApiErr(errors2.INSUFFICIENTPARAMETERS)
 	}
 	if r.ExpirationMonth < 0 || r.ExpirationMonth > 12 {
-		return nil, errors2.ApiErr(errors2.WRONGDATENUMBER)
+		return "", errors2.ApiErr(errors2.WRONGDATENUMBER)
 	}
 	if r.ExpirationYear < 20 || r.ExpirationYear > 60 {
-		return nil, errors2.ApiErr(errors2.WRONGDATENUMBER)
+		return "", errors2.ApiErr(errors2.WRONGDATENUMBER)
 	}
 	if r.DistributorAffiliation == 0 {
-		return nil, errors2.ApiErr(errors2.INSUFFICIENTPARAMETERS)
+		return "", errors2.ApiErr(errors2.INSUFFICIENTPARAMETERS)
 	}
 
 	// Adding all optional parameters
@@ -101,5 +100,5 @@ func (r Request) ToJson() ([]byte, error) {
 	}
 
 	jsonResult, err := json.Marshal(result)
-	return jsonResult, err
+	return string(jsonResult), err
 }
