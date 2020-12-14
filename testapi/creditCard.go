@@ -3,11 +3,11 @@ package testapi
 import "github.com/lusantisuper/api-rede-golang/structs"
 
 // ReturnACardModel example credit card
-func ReturnACardModel() *structs.Request {
-	return &structs.Request{
+func ReturnACardModel() *structs.Payment {
+	return &structs.Payment{
 		Capture:                false,
 		Kind:                   "credit",
-		Reference:              "5",
+		Reference:              "0",
 		Amount:                 1000,
 		Installments:           0,
 		CardHolderName:         "Pessoa 2",

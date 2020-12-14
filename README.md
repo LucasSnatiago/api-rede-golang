@@ -14,9 +14,9 @@ import github.com/lusantisuper/api-rede-golang
 Edit the [login.json](https://github.com/lusantisuper/api-rede-golang/blob/main/login.json) file and add your keys or use the method: ```login.ReadLogin(PV, IntegrationKey)```
 
 #
-The request struct contains all data needed to make the payment request.
+The payment struct contains all data needed to make the payment request.
 ```go
-struct structs.Request
+struct structs.Payment
 ```
 #
 Use the method Pay to make the payment:

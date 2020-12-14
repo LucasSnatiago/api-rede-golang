@@ -8,7 +8,7 @@ import (
 )
 
 // Request Struct of the request to de REDE's API
-type Request struct {
+type Payment struct {
 	// Optional: Define true if you want the request to be automatic captured
 	Capture bool `json:"capture"`
 	// Optional: Payment method -> "credit" and "debit"
@@ -43,8 +43,8 @@ type Request struct {
 }
 
 // ToJSON Return a valid byte array of the request
-func (r Request) ToJSON() ([]byte, error) {
-	result := Request{
+func (r Payment) ToJSON() ([]byte, error) {
+	result := Payment{
 		Capture:                r.Capture,
 		Kind:                   r.Kind,
 		Reference:              r.Reference,
