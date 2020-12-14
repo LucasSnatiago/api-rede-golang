@@ -6,10 +6,18 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	"github.com/lusantisuper/api-rede-golang/currenttime"
+	"github.com/lusantisuper/api-rede-golang/login"
 	"github.com/lusantisuper/api-rede-golang/structs"
 )
 
 func main() {
+	fmt.Println(login.ReadLoginFromJSON())
+
+	fmt.Printf("%s", currenttime.GetCurrentTime())
+}
+
+func testRequest() {
 	cartaoTeste := &structs.Request{
 		Capture:                false,
 		Kind:                   "credit",
