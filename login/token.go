@@ -46,3 +46,11 @@ func (l Login) FromLoginToBase64() string {
 func (l Login) String() string {
 	return fmt.Sprintf("PV: %s\nIntegrationKey: %s\n", l.PV, l.IntegrationKey)
 }
+
+// ReadLogin read the login data from the parameters and save in a login struct
+func ReadLogin(pv string, ik string) *Login {
+	return &Login{
+		PV:             pv,
+		IntegrationKey: ik,
+	}
+}
