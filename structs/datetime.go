@@ -1,6 +1,6 @@
 package structs
 
-// YYYY-MM-DDThh:mm:ss.sTZD
+// DateTime YYYY-MM-DDThh:mm:ss.sTZD
 type DateTime struct {
 	Year       int
 	Month      int

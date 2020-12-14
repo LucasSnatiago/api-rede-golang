@@ -1,5 +1,6 @@
 package structs
 
+// Response Struct to return the response of the Rede's API
 type Response struct {
 	// Return code
 	ReturnCode string `json:"ReturnCode"`
