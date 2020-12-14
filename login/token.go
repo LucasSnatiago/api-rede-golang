@@ -18,7 +18,7 @@ type Login struct {
 }
 
 // ReadLoginFromJSON Reading all login information about your Rede API
-func ReadLoginFromJSON() string {
+func ReadLoginFromJSON() *Login {
 	loginFile, err := os.Open("./login.json")
 	if err != nil {
 		fmt.Println("The login.json file doesn't exist, please copy from the github again!")
@@ -32,10 +32,11 @@ func ReadLoginFromJSON() string {
 	var login Login
 	json.Unmarshal(apiLogin, &login)
 
-	return login.fromLoginToBase64()
+	return &login
 }
 
-func (l Login) fromLoginToBase64() string {
+// FromLoginToBase64 return a base64 value to use in the headers
+func (l Login) FromLoginToBase64() string {
 	keys := fmt.Sprintf("%s:%s", l.PV, l.IntegrationKey)
 
 	return base64.StdEncoding.EncodeToString([]byte(keys))
