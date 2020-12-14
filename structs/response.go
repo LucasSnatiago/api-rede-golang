@@ -1,5 +1,7 @@
 package structs
 
+import "fmt"
+
 // Response Struct to return the response of the Rede's API
 type Response struct {
 	// Return code
@@ -24,4 +26,9 @@ type Response struct {
 	Last4 int `json:"last4"`
 	// BrandTid
 	BrandTid string `json:"BrandTid"`
+}
+
+// String return a string containing all data about the response
+func (r Response) String() string {
+	return fmt.Sprintf("Return Code: %s\nReturn Message: %s\nReference: %s\nTid: %s\nNsu: %s\nAuthorizationCode: %s\nDateTime: %s\nAmount: %d\nCardBin: %d\nLast4: %d\nBrandTid: %s\n", r.ReturnCode, r.ReturnMessage, r.ReturnMessage, r.Tid, r.Nsu, r.AuthorizationCode, r.DateTime, r.Amount, r.CardBin, r.Last4, r.BrandTid)
 }

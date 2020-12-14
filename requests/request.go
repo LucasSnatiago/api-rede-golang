@@ -2,9 +2,11 @@ package requests
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strings"
 
 	errors2 "github.com/lusantisuper/api-rede-golang/apierr"
 	"github.com/lusantisuper/api-rede-golang/login"
@@ -12,13 +14,25 @@ import (
 )
 
 // Pay a method to do the payment
-func Pay(r *structs.Request, login *login.Login) {
+func Pay(r *structs.Request, login *login.Login) error {
 	postParameters, err := r.ToJSON()
 	if err != nil {
 		errors2.APIErr(err.Error())
 	}
 
-	DoPostRequest(structs.APIBaseURL(), "POST", postParameters, login)
+	_, _, body := DoPostRequest(structs.APIBaseURL(), "POST", postParameters, login)
+
+	var parseHeader structs.Response
+	err = json.Unmarshal([]byte(body), &parseHeader)
+	if err != nil {
+		errors2.APIErr(err.Error())
+	}
+
+	if strings.Compare(parseHeader.ReturnCode, "00") != 0 {
+		return errors2.APIErr("The payment was not successful!")
+	}
+
+	return nil
 }
 
 // DoPostRequest do the low level needs for the requests
@@ -36,10 +50,7 @@ func DoPostRequest(url string, method string, content []byte, login *login.Login
 	}
 	defer resp.Body.Close()
 
-	fmt.Println("response Status:", resp.Status)
-
 	body, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println("response Body:", string(body))
 
 	return resp.Status, fmt.Sprint(resp.Header), string(body)
 }

@@ -1,4 +1,4 @@
-package testAPI
+package testapi
 
 import "github.com/lusantisuper/api-rede-golang/structs"
 
@@ -7,7 +7,7 @@ func ReturnACardModel() *structs.Request {
 	return &structs.Request{
 		Capture:                false,
 		Kind:                   "credit",
-		Reference:              "0",
+		Reference:              "5",
 		Amount:                 1000,
 		Installments:           0,
 		CardHolderName:         "Pessoa 2",
