@@ -14,7 +14,7 @@ import (
 )
 
 // Pay a method to do the payment
-func Pay(r *structs.Payment, login *login.Login, isRealTransaction bool) error {
+func Pay(r *structs.Payment, login *login.Login, isRealTransaction bool) (*structs.Response, error) {
 	postParameters, err := r.ToJSON()
 	if err != nil {
 		errors2.APIErr(err.Error())
@@ -36,10 +36,10 @@ func Pay(r *structs.Payment, login *login.Login, isRealTransaction bool) error {
 	}
 
 	if strings.Compare(parseHeader.ReturnCode, "00") != 0 {
-		return errors2.APIErr("The payment was not successful!")
+		return nil, errors2.APIErr("The payment was not successful!")
 	}
 
-	return nil
+	return &parseHeader, nil
 }
 
 // DoPostRequest do the low level needs for the requests
