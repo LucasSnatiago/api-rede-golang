@@ -24,7 +24,12 @@ Use the method Pay to make the payment:
 func Pay(r *structs.Payment, login *login.Login, isRealTransaction bool) (*structs,Response, error)
 ```
 You need to pass the True value to make a real payment or false if you are only testing. The function returns a error if the payments didn't work, else return nil.
-
+#
+Use the method TestCard to test if a card is valid:
+```go
+func TestCard(r *structs.Payment, login *login.Login, isRealTransaction bool) (*structs.Response, error)
+```
+You need to pass the True value to make a real card test or false if you are only testing. The function returns a error if the test didn't work, else return nil.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
