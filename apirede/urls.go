@@ -1,4 +1,4 @@
-package structs
+package apirede
 
 const apiVersion string = "v1/"
 const baseURL string = "https://api.userede.com.br/erede/" + apiVersion + "transactions/"

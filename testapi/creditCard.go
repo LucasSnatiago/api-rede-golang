@@ -1,10 +1,10 @@
 package testapi
 
-import "github.com/lusantisuper/api-rede-golang/structs"
+import "github.com/lusantisuper/api-rede-golang/apirede"
 
 // ReturnACardModel example credit card
-func ReturnACardModel() *structs.Payment {
-	return &structs.Payment{
+func ReturnACardModel() *apirede.Payment {
+	return &apirede.Payment{
 		Capture:                true,
 		Kind:                   "credit",
 		Reference:              "0",

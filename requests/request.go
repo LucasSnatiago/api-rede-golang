@@ -9,12 +9,12 @@ import (
 	"strings"
 
 	errors2 "github.com/lusantisuper/api-rede-golang/apierr"
+	"github.com/lusantisuper/api-rede-golang/apirede"
 	"github.com/lusantisuper/api-rede-golang/login"
-	"github.com/lusantisuper/api-rede-golang/structs"
 )
 
 // Pay a method to do the payment
-func Pay(r *structs.Payment, login *login.Login, isRealTransaction bool) (*structs.Response, error) {
+func Pay(r *apirede.Payment, login *login.Login, isRealTransaction bool) (*apirede.Response, error) {
 	postParameters, err := r.ToJSON()
 	if err != nil {
 		errors2.APIErr(err.Error())
@@ -22,14 +22,14 @@ func Pay(r *structs.Payment, login *login.Login, isRealTransaction bool) (*struc
 
 	body := ""
 	if isRealTransaction {
-		_, _, body = DoPostRequest(structs.APIBaseURL(), "POST", postParameters, login)
+		_, _, body = DoPostRequest(apirede.APIBaseURL(), "POST", postParameters, login)
 
 	} else {
-		_, _, body = DoPostRequest(structs.APIBaseURLTest(), "POST", postParameters, login)
+		_, _, body = DoPostRequest(apirede.APIBaseURLTest(), "POST", postParameters, login)
 
 	}
 
-	var parseHeader structs.Response
+	var parseHeader apirede.Response
 	err = json.Unmarshal([]byte(body), &parseHeader)
 	if err != nil {
 		errors2.APIErr(err.Error())
@@ -43,7 +43,7 @@ func Pay(r *structs.Payment, login *login.Login, isRealTransaction bool) (*struc
 }
 
 // TestCard is a test function to see if the card is valid
-func TestCard(r *structs.Payment, login *login.Login, isRealTransaction bool) (*structs.Response, error) {
+func TestCard(r *apirede.Payment, login *login.Login, isRealTransaction bool) (*apirede.Response, error) {
 	r.Amount = 0
 
 	payment, err := Pay(r, login, isRealTransaction)
