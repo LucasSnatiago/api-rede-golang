@@ -7,7 +7,7 @@ import (
 	"github.com/lusantisuper/api-rede-golang/utils"
 )
 
-// Request Struct of the request to de REDE's API
+// Payment Struct of the request to de REDE's API
 type Payment struct {
 	// Optional: Define true if you want the request to be automatic captured
 	Capture bool `json:"capture"`
@@ -42,7 +42,7 @@ type Payment struct {
 	brandTid string
 }
 
-// ToJSON Return a valid byte array of the request
+// ToJSON Return a valid byte array of the Payment
 func (r Payment) ToJSON() ([]byte, error) {
 	result := Payment{
 		Capture:                r.Capture,
@@ -84,7 +84,7 @@ func (r Payment) ToJSON() ([]byte, error) {
 
 	// Adding all optional parameters
 	if !r.Capture {
-		result.Capture = false
+		result.Capture = true
 	}
 	if !utils.IsStringEmpty(r.Kind) {
 		result.Kind = r.Kind

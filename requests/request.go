@@ -14,13 +14,20 @@ import (
 )
 
 // Pay a method to do the payment
-func Pay(r *structs.Request, login *login.Login) error {
+func Pay(r *structs.Payment, login *login.Login, isRealTransaction bool) error {
 	postParameters, err := r.ToJSON()
 	if err != nil {
 		errors2.APIErr(err.Error())
 	}
 
-	_, _, body := DoPostRequest(structs.APIBaseURL(), "POST", postParameters, login)
+	body := ""
+	if isRealTransaction {
+		_, _, body = DoPostRequest(structs.APIBaseURL(), "POST", postParameters, login)
+
+	} else {
+		_, _, body = DoPostRequest(structs.APIBaseURLTest(), "POST", postParameters, login)
+
+	}
 
 	var parseHeader structs.Response
 	err = json.Unmarshal([]byte(body), &parseHeader)

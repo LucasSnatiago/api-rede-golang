@@ -26,9 +26,18 @@ type Response struct {
 	Last4 int `json:"last4"`
 	// BrandTid
 	BrandTid string `json:"BrandTid"`
+	// Links are all possible links returned by the Rede (refund for example)
+	Links []links `json:"links"`
+}
+
+// links all links returned by Rede
+type links struct {
+	Method string `json:"method"`
+	Rel    string `json:"rel"`
+	Href   string `json:"href"`
 }
 
 // String return a string containing all data about the response
 func (r Response) String() string {
-	return fmt.Sprintf("Return Code: %s\nReturn Message: %s\nReference: %s\nTid: %s\nNsu: %s\nAuthorizationCode: %s\nDateTime: %s\nAmount: %d\nCardBin: %d\nLast4: %d\nBrandTid: %s\n", r.ReturnCode, r.ReturnMessage, r.ReturnMessage, r.Tid, r.Nsu, r.AuthorizationCode, r.DateTime, r.Amount, r.CardBin, r.Last4, r.BrandTid)
+	return fmt.Sprintf("Return Code: %s\nReturn Message: %s\nReference: %s\nTid: %s\nNsu: %s\nAuthorizationCode: %s\nDateTime: %s\nAmount: %d\nCardBin: %d\nLast4: %d\nBrandTid: %s\nLinks: %s\n", r.ReturnCode, r.ReturnMessage, r.ReturnMessage, r.Tid, r.Nsu, r.AuthorizationCode, r.DateTime, r.Amount, r.CardBin, r.Last4, r.BrandTid, r.Links)
 }

@@ -17,7 +17,7 @@ func main() {
 func testRequest(login *login.Login) {
 	cartaoTeste := testapi.ReturnACardModel()
 
-	err := requests.Pay(cartaoTeste, login)
+	err := requests.Pay(cartaoTeste, login, false)
 
 	if err != nil {
 		fmt.Println("The payment was not successful!")

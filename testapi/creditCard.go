@@ -5,7 +5,7 @@ import "github.com/lusantisuper/api-rede-golang/structs"
 // ReturnACardModel example credit card
 func ReturnACardModel() *structs.Payment {
 	return &structs.Payment{
-		Capture:                false,
+		Capture:                true,
 		Kind:                   "credit",
 		Reference:              "0",
 		Amount:                 1000,
