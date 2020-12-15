@@ -35,11 +35,23 @@ func Pay(r *structs.Payment, login *login.Login, isRealTransaction bool) (*struc
 		errors2.APIErr(err.Error())
 	}
 
-	if strings.Compare(parseHeader.ReturnCode, "00") != 0 {
-		return nil, errors2.APIErr("The payment was not successful!")
+	if strings.Compare(parseHeader.ReturnCode, "00") != 0 && strings.Compare(parseHeader.ReturnCode, "174") != 0 {
+		err = errors2.APIErr("The payment was not successful!")
 	}
 
-	return &parseHeader, nil
+	return &parseHeader, err
+}
+
+// TestCard is a test function to see if the card is valid
+func TestCard(r *structs.Payment, login *login.Login, isRealTransaction bool) (*structs.Response, error) {
+	r.Amount = 0
+
+	payment, err := Pay(r, login, isRealTransaction)
+	if err != nil {
+		err = errors2.APIErr("The card is not valid!")
+	}
+
+	return payment, err
 }
 
 // DoPostRequest do the low level needs for the requests
