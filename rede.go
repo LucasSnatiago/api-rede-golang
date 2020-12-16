@@ -4,11 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	errors2 "github.com/lusantisuper/api-rede-golang/apierrs"
-	"github.com/lusantisuper/api-rede-golang/utils"
 	"io/ioutil"
 	"net/http"
 	"strings"
+
+	errors2 "github.com/lusantisuper/api-rede-golang/apierrs"
+	"github.com/lusantisuper/api-rede-golang/utils"
 
 	"github.com/lusantisuper/api-rede-golang/login"
 	"github.com/lusantisuper/api-rede-golang/models"
@@ -16,8 +17,8 @@ import (
 
 // Rede interface for the Rede's API
 type Rede interface {
-	Pay(r *models.Payment) (*models.Response, error)
-	TestCard(r *models.Payment) (*models.Response, error)
+	Pay(p *models.Payment) (*models.Response, error)
+	TestCard(p *models.Payment) (*models.Response, error)
 }
 
 type rede struct {
