@@ -13,11 +13,6 @@ import (
 	"github.com/lusantisuper/api-rede-golang/internal/login"
 )
 
-// main This is only a lib does not contain a executable part
-func main() {
-
-}
-
 // Rede interface for the Rede's API
 type Rede interface {
 	Pay(r *Payment) (*Response, error)
