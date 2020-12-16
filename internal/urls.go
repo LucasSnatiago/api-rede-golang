@@ -1,4 +1,4 @@
-package apirede
+package internal
 
 const apiVersion string = "v1/"
 const baseURL string = "https://api.userede.com.br/erede/" + apiVersion + "transactions/"

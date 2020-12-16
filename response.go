@@ -1,4 +1,4 @@
-package apirede
+package main
 
 import "fmt"
 
