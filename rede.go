@@ -26,7 +26,7 @@ type rede struct {
 }
 
 // NewRede instantiate a new Rede API object
-func NewRede(pv string, ik string, isProduction bool) *rede {
+func NewRede(pv string, ik string, isProduction bool) Rede {
 	return &rede{
 		config: &login.Login{
 			PV:             pv,
