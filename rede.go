@@ -19,6 +19,7 @@ import (
 type Rede interface {
 	Pay(p *models.Payment) (*models.Response, error)
 	TestCard(p *models.Payment) (*models.Response, error)
+	NewRede(pv string, ik string, isProduction bool) *rede
 }
 
 type rede struct {
