@@ -10,7 +10,7 @@ import (
 )
 
 // If you are testing remember to add 2 in the testapi.creditCard
-func main() {
+func test() {
 	user := login.ReadLoginFromJSON()
 
 	testRequest(user)
@@ -20,7 +20,7 @@ func main() {
 func testRequest(login *login.Login) {
 	cartaoTeste := testapi.ReturnACardModel()
 
-	response, err := requests.Pay(cartaoTeste, login, false)
+	response, err := Pay(cartaoTeste, login, false)
 
 	if err != nil {
 		fmt.Println("The payment was not successful!")
