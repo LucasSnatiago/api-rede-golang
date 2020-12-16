@@ -15,6 +15,9 @@ type Login struct {
 
 	// IntegrationKey your integration's key
 	IntegrationKey string `json:"IntegrationKey"`
+
+	// IsProduction is to verify if it's a real transaction or a development test
+	IsProduction bool
 }
 
 // ReadLoginFromJSON Reading all login information about your Rede API

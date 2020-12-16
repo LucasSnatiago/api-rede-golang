@@ -13,19 +13,29 @@ import (
 	"github.com/lusantisuper/api-rede-golang/login"
 )
 
+// Rede interface for the Rede's API
+type Rede interface {
+	Pay(r *apirede.Payment) (*apirede.Response, error)
+	TestCard(r *apirede.Payment) (*apirede.Response, error)
+}
+
+type rede struct {
+	config *login.Login
+}
+
 // Pay a method to do the payment
-func Pay(r *apirede.Payment, login *login.Login, isRealTransaction bool) (*apirede.Response, error) {
-	postParameters, err := r.ToJSON()
+func (r rede) Pay(req *apirede.Payment) (*apirede.Response, error) {
+	postParameters, err := req.ToJSON()
 	if err != nil {
 		errors2.APIErr(err.Error())
 	}
 
 	body := ""
-	if isRealTransaction {
-		_, _, body = DoPostRequest(apirede.APIBaseURL(), "POST", postParameters, login)
+	if r.config.IsProduction {
+		_, _, body = DoPostRequest(apirede.APIBaseURL(), "POST", postParameters, r.config)
 
 	} else {
-		_, _, body = DoPostRequest(apirede.APIBaseURLTest(), "POST", postParameters, login)
+		_, _, body = DoPostRequest(apirede.APIBaseURLTest(), "POST", postParameters, r.config)
 
 	}
 
@@ -43,10 +53,10 @@ func Pay(r *apirede.Payment, login *login.Login, isRealTransaction bool) (*apire
 }
 
 // TestCard is a test function to see if the card is valid
-func TestCard(r *apirede.Payment, login *login.Login, isRealTransaction bool) (*apirede.Response, error) {
-	r.Amount = 0
+func (r rede) TestCard(req *apirede.Payment) (*apirede.Response, error) {
+	req.Amount = 0
 
-	payment, err := Pay(r, login, isRealTransaction)
+	payment, err := r.Pay(req)
 	if err != nil {
 		err = errors2.APIErr("The card is not valid!")
 	}
