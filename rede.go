@@ -83,3 +83,8 @@ func doPostRequest(url string, method string, content []byte, login *login.Login
 
 	return resp.Status, fmt.Sprint(resp.Header), string(body)
 }
+
+// main This is only a lib does not contain a executable part
+func main() {
+
+}
