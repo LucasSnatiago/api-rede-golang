@@ -3,8 +3,8 @@ package apirede
 import (
 	"encoding/json"
 
-	errors2 "github.com/lusantisuper/api-rede-golang/apierr"
-	"github.com/lusantisuper/api-rede-golang/utils"
+	errors2 "github.com/lusantisuper/api-rede-golang/internal/apierr"
+	"github.com/lusantisuper/api-rede-golang/internal/utils"
 )
 
 // Payment Struct of the request to de REDE's API

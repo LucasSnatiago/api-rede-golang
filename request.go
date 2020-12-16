@@ -8,9 +8,9 @@ import (
 	"net/http"
 	"strings"
 
-	errors2 "github.com/lusantisuper/api-rede-golang/apierr"
+	errors2 "github.com/lusantisuper/api-rede-golang/internal/apierr"
 	"github.com/lusantisuper/api-rede-golang/apirede"
-	"github.com/lusantisuper/api-rede-golang/login"
+	"github.com/lusantisuper/api-rede-golang/internal/login"
 )
 
 // Rede interface for the Rede's API
@@ -64,7 +64,7 @@ func (r rede) TestCard(req *apirede.Payment) (*apirede.Response, error) {
 	return payment, err
 }
 
-// DoPostRequest do the low level needs for the requests
+// doPostRequest do the low level needs for the requests
 func doPostRequest(url string, method string, content []byte, login *login.Login) (string, string, string) {
 
 	var jsonStr = content
