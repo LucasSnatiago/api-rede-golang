@@ -13,6 +13,11 @@ import (
 	"github.com/lusantisuper/api-rede-golang/internal/login"
 )
 
+// main This is only a lib does not contain a executable part
+func main() {
+
+}
+
 // Rede interface for the Rede's API
 type Rede interface {
 	Pay(r *Payment) (*Response, error)
@@ -82,9 +87,4 @@ func doPostRequest(url string, method string, content []byte, login *login.Login
 	body, _ := ioutil.ReadAll(resp.Body)
 
 	return resp.Status, fmt.Sprint(resp.Header), string(body)
-}
-
-// main This is only a lib does not contain a executable part
-func main() {
-
 }
