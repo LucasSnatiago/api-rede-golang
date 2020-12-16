@@ -1,4 +1,4 @@
-package requests
+package main
 
 import (
 	"bytes"
@@ -32,10 +32,10 @@ func (r rede) Pay(req *apirede.Payment) (*apirede.Response, error) {
 
 	body := ""
 	if r.config.IsProduction {
-		_, _, body = DoPostRequest(apirede.APIBaseURL(), "POST", postParameters, r.config)
+		_, _, body = doPostRequest(apirede.APIBaseURL(), "POST", postParameters, r.config)
 
 	} else {
-		_, _, body = DoPostRequest(apirede.APIBaseURLTest(), "POST", postParameters, r.config)
+		_, _, body = doPostRequest(apirede.APIBaseURLTest(), "POST", postParameters, r.config)
 
 	}
 
@@ -65,7 +65,7 @@ func (r rede) TestCard(req *apirede.Payment) (*apirede.Response, error) {
 }
 
 // DoPostRequest do the low level needs for the requests
-func DoPostRequest(url string, method string, content []byte, login *login.Login) (string, string, string) {
+func doPostRequest(url string, method string, content []byte, login *login.Login) (string, string, string) {
 
 	var jsonStr = content
 	req, err := http.NewRequest(method, url, bytes.NewBuffer(jsonStr))
