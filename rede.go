@@ -19,7 +19,6 @@ import (
 type Rede interface {
 	Pay(p *models.Payment) (*models.Response, error)
 	TestCard(p *models.Payment) (*models.Response, error)
-	NewRede(pv string, ik string, isProduction bool) *rede
 }
 
 type rede struct {
@@ -27,7 +26,7 @@ type rede struct {
 }
 
 // NewRede instantiate a new Rede API object
-func (r rede) NewRede(pv string, ik string, isProduction bool) *rede {
+func NewRede(pv string, ik string, isProduction bool) *rede {
 	return &rede{
 		config: &login.Login{
 			PV:             pv,
