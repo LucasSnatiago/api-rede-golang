@@ -1,12 +1,8 @@
-package testapi
-
-import (
-	"github.com/lusantisuper/api-rede-golang"
-)
+package models
 
 // ReturnACardModel example credit card
-func ReturnACardModel() *main.Payment {
-	return &main.Payment{
+func ReturnACardModel() *Payment {
+	return &Payment{
 		Capture:                true,
 		Kind:                   "credit",
 		Reference:              "0",

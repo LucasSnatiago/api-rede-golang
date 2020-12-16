@@ -4,42 +4,54 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/lusantisuper/api-rede-golang/internal"
+	errors2 "github.com/lusantisuper/api-rede-golang/apierrs"
+	"github.com/lusantisuper/api-rede-golang/utils"
 	"io/ioutil"
 	"net/http"
 	"strings"
 
-	errors2 "github.com/lusantisuper/api-rede-golang/internal/apierr"
-	"github.com/lusantisuper/api-rede-golang/internal/login"
+	"github.com/lusantisuper/api-rede-golang/login"
+	"github.com/lusantisuper/api-rede-golang/models"
 )
 
 // Rede interface for the Rede's API
 type Rede interface {
-	Pay(r *Payment) (*Response, error)
-	TestCard(r *Payment) (*Response, error)
+	Pay(r *models.Payment) (*models.Response, error)
+	TestCard(r *models.Payment) (*models.Response, error)
 }
 
 type rede struct {
 	config *login.Login
 }
 
+// NewRede instantiate a new Rede API object
+func (r rede) NewRede(pv string, ik string, isProduction bool) *rede {
+	return &rede{
+		config: &login.Login{
+			PV:             pv,
+			IntegrationKey: ik,
+			IsProduction:   isProduction,
+		},
+	}
+}
+
 // Pay a method to do the payment
-func (r rede) Pay(req *Payment) (*Response, error) {
-	postParameters, err := req.toJSON()
+func (r rede) Pay(req *models.Payment) (*models.Response, error) {
+	postParameters, err := req.ToJSON()
 	if err != nil {
 		errors2.APIErr(err.Error())
 	}
 
 	body := ""
 	if r.config.IsProduction {
-		_, _, body = doPostRequest(internal.APIBaseURL(), "POST", postParameters, r.config)
+		_, _, body = doPostRequest(utils.APIBaseURL(), "POST", postParameters, r.config)
 
 	} else {
-		_, _, body = doPostRequest(internal.APIBaseURLTest(), "POST", postParameters, r.config)
+		_, _, body = doPostRequest(utils.APIBaseURLTest(), "POST", postParameters, r.config)
 
 	}
 
-	var parseHeader Response
+	var parseHeader models.Response
 	err = json.Unmarshal([]byte(body), &parseHeader)
 	if err != nil {
 		errors2.APIErr(err.Error())
@@ -53,7 +65,7 @@ func (r rede) Pay(req *Payment) (*Response, error) {
 }
 
 // TestCard is a test function to see if the card is valid
-func (r rede) TestCard(req *Payment) (*Response, error) {
+func (r rede) TestCard(req *models.Payment) (*models.Response, error) {
 	req.Amount = 0
 
 	payment, err := r.Pay(req)

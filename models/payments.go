@@ -1,9 +1,9 @@
-package rede
+package models
 
 import (
 	"encoding/json"
-	errors2 "github.com/lusantisuper/api-rede-golang/internal/apierr"
-	"github.com/lusantisuper/api-rede-golang/internal/utils"
+	errors2 "github.com/lusantisuper/api-rede-golang/apierrs"
+	"github.com/lusantisuper/api-rede-golang/utils"
 )
 
 // Payment Struct of the request to de REDE's API
@@ -42,7 +42,7 @@ type Payment struct {
 }
 
 // ToJSON Return a valid byte array of the Payment
-func (r Payment) toJSON() ([]byte, error) {
+func (r Payment) ToJSON() ([]byte, error) {
 	result := Payment{
 		Capture:                r.Capture,
 		Kind:                   r.Kind,

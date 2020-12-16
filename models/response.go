@@ -1,4 +1,4 @@
-package rede
+package models
 
 import "fmt"
 
